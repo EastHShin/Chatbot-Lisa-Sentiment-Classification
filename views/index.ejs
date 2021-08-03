@@ -30,24 +30,54 @@
       send_req();
       
     }
+    function get_localtime(){
+      const dateObj = new Date();
+      let hours = dateObj.getHours();
+      let minutes = dateObj.getMinutes();
+      if (parseInt(minutes) < 10){
+          minutes = "0" + minutes
+        }
+      let local_time = hours + ':' + minutes;
+      return local_time;
+    }
+    function add_div_usr(user, time){
+      let div = document.createElement('div');
+      let htmlstr = "";
+      htmlstr += 
+      "<div class='message sag mtLine'> <div class='messageText' data-time=" + time + ">"
+        + user +
+      "</div> <div class='resim' style=\"background-image: url('https://cdn.pixabay.com/photo/2016/02/22/08/51/paper-1214993_960_720.jpg');\"></div></div>"
+      div.innerHTML = htmlstr;
+      document.getElementById('chatbox').appendChild(div);
+    }
+    function add_div_bot(answer, label, time){
+      let div = document.createElement('div');
+      let htmlstr = "";
+      htmlstr += "<div class='message sol'> <div class='resim' style=\"background-image: url('https://png.clipart.me/previews/64b/lisa-simpson-1-40134.jpg');\" ></div> <div class='messageText' data-time= " + time + ">"
+       + answer + "</div></div><div class='feel_lisa'>" +
+      label + "</div>";
+      div.innerHTML = htmlstr;
+      document.getElementById('chatbox').appendChild(div);
+    }
     function send_req() {
         if (double_submit_check()) {
             return;
         }
 
         let chatting = document.getElementById("chat_input").value;
+        document.getElementById("chat_input").value = "";
         
-
         if (chatting == '') {
             document.getElementById('warning').innerText = 'Please fill the text!';
             flag = false;
             return;
         }
-
+        
         const url = "/chat";
         let start = 0;
-        
-
+        let usr_localtime = get_localtime();
+        document.getElementById("loc-time").innerText = usr_localtime;
+        add_div_usr(chatting, usr_localtime);
         // timer
 
         timer = setInterval(() => {
@@ -65,7 +95,8 @@
          clearInterval(timer);
          time_obj.innerText = 'Done!';
          flag = false;
-         window.location.reload(true);
+         let bot_localtime = get_localtime();
+         add_div_bot(response.data['ans'], response.data['label'], bot_localtime);
         })
         .catch(err => {
           clearInterval(timer);
@@ -74,7 +105,10 @@
         })
     }
     </script>
-    <div class="time"><span>
+      
+
+    </div>
+    <div class="time"><span id="loc-time">
       <% const dateObj = new Date();
       let hours = dateObj.getHours();
       let minutes = dateObj.getMinutes();
@@ -83,35 +117,10 @@
       }
       let local_time = hours + ':' + minutes; %>
       <%= local_time %> </span></div>
-    <% 
-    let ans_count = 0;
-    let usr_count = 0;
-    let label_count = 0;
-    for(var i=0; i < cnt; i++) {
+  
+    <div class="chat-box" id="chatbox">
       
-      if(i % 2 == 1) { %>
-    <div class="message sol">
-      <div class="resim" style="background-image: url('https://png.clipart.me/previews/64b/lisa-simpson-1-40134.jpg');" ></div>
-      <div class="messageText" data-time= "<%= time[i] %>" >
-        <%= ans[ans_count] %>
-      </div>
     </div>
-    <div class="feel_lisa ">
-      <%= label[label_count] %>
-      </div>
-    <% ans_count += 1;
-      label_count += 1;
-    console.log(ans_count + "ans count")}
-    if(i % 2 == 0) { %>
-      <div class="message sag mtLine">
-      <div class="messageText" data-time="<%= time[i] %>">
-        <%= user[usr_count] %>
-      </div>
-      <div class="resim" style="background-image: url('https://cdn.pixabay.com/photo/2016/02/22/08/51/paper-1214993_960_720.jpg');"></div>
-    </div>
-    
-      <% usr_count += 1;} } %>
-    
    
     <div class="ref">
       <h1 id="header"> Chatbot(Lisa)-Sentiment-Classification</h1>
@@ -119,11 +128,10 @@
       <p style="color: aliceblue; font-size: 22px;"> Open API <a href="https://ainize.ai/EastHShin/Chatbot-Sentiment_Classification-API?branch=main">On Ainize</a></p>
       <p style="color: aliceblue; font-size: 22px;">Model Code : <a href="https://huggingface.co/EasthShin/Emotion-Classification-bert-base">Workspace</a></p>
       <p style="color: aliceblue; font-size: 22px;">Demo web Code : <a href="https://github.com/EastHShin/Chatbot-Lisa-Sentiment-Classification">Github</a></p>
-
       </div>
     <div class="inputBox">
       <div class="text-box">
-        <textarea type="text" id="chat_input" onkeypress="if(event.keyCode==13) enterEvent()" ></textarea>
+        <textarea type="text" id="chat_input" placeholder="Chat to Lisa!" onkeypress="if(event.keyCode==13) enterEvent()" ></textarea>
       </div>
       <div class="button-box">
         <button type="submit" class="btn btn-secondary" id="button" onclick="send_req()">Submit</button>
@@ -131,6 +139,5 @@
         <b><label id="warning" style="color: red"></label> </b>
       </div>
     </div>
-
   </body>
 </html>
