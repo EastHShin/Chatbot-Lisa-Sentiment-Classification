@@ -9,7 +9,7 @@ But what if the other person is a chatbot, not a person? does chatbot also have 
 
 This program assumes a chatbot is a person, chats with the bot, and classificates the feelings for each chatting sentence. try talking with Lisa right now!<br><br>
 
-(Kor) <br>
+### (Korean) <br>
 상대방과 대화를 할 때, 상대방이 어떤 감정을 가지고 말을 하고 있는지 궁금하지 않으신가요? 그런데, 상대방이 사람이 아니라 챗봇이라면 어떨까요? 챗봇에도 감정이 있을까요? <br>
 
 이 프로그램은 챗봇이 사람이라고 가정하고 봇과 대화하며 각 문장마다의 감정을 분석하여 나타냅니다.
