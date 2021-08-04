@@ -4,6 +4,9 @@
 
 ## Overview
 ---
+![Chat](./img/chatwithlisa.png)
+<br>
+
 Do you want to know what kind of feelings the other person has when talking to you?
 But what if the other person is a chatbot, not a person? does chatbot also have feelings? <br>
 
