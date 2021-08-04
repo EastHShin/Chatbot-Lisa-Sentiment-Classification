@@ -4,7 +4,7 @@
 
 ## Overview
 ---
-![Chat](./img/chatwithlisa.png)
+![Chat](./images/chatwithlisa.png)
 <br>
 
 Do you want to know what kind of feelings the other person has when talking to you?
