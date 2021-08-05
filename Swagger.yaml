@@ -16,7 +16,7 @@ servers:
   - url: "https://main-chatbot-sentiment-classification-api-east-h-shin.endpoint.ainize.ai"
 
 paths:
-  /classification:
+  /chat:
     post:
       summary: Get Response
       requestBody:
