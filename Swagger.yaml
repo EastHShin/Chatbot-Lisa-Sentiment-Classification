@@ -1,0 +1,50 @@
+openapi: 3.0.3
+
+info:
+
+  version: "1.0.0"
+  title: "Chatbot-Sentiment-Classification model"
+  contact:
+    email: "easthshin@comcom.ai"
+  license:
+    name: "CC BY-SA 3.0"
+    url: "https://creativecommons.org/licenses/by-sa/3.0/"
+  description: "Try using the Chatbot-Sentiment-Classification model as a BERT model and DialoGPT trained on emotion dataset from [Huggingface](https://huggingface.co/datasets/emotion) and Dialogue Lines of The Simpsons from [Kaggle](https://www.kaggle.com/pierremegret/dialogue-lines-of-the-simpsons)"
+    
+    
+servers:
+  - url: "https://main-chatbot-sentiment-classification-api-east-h-shin.endpoint.ainize.ai"
+
+paths:
+  /classification:
+    post:
+      summary: Get Response
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+              required:
+                - question
+      responses:
+        '200':
+          description: "Succesful Response"
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: "Bad Request Error"
+        '429':
+          description: "Too many requests"
+        '500':
+          description: "Server-side Error"
+
+
+externalDocs:
+  description: "Ainize"
+  url: "https://ainize.ai/explore"
